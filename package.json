@@ -1,0 +1,27 @@
+{
+    "name": "Etherio",
+    "version": "1.0.0",
+    "description": "Simple interface to the Etherio board.",
+    "homepage" : "http://ushomeautomation.com/Projects/node-etherio/index.html",
+    "keywords": [
+        "etherio",
+        "Home Automation"
+    ],
+    "main": "Etherio.js",
+    "scripts": {
+	"tests": "echo 'Warning: no test specified' && exit 0"
+    },
+    "devDependencies": {
+	"mocha": "2.5.3"
+    },
+    "dependencies": {
+	"mathjs": "3.3.0"
+    },
+    "repository": {
+        "type" : "git",
+        "url" : "http://github.com/linuxha/Etherio.git"
+    },
+    "author": "Neil Cherry <ncherry@linuxha.com>",
+    "license": "GPL-2.0",
+    "readmeFilename": "README.md"
+}
