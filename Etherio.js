@@ -1,3 +1,4 @@
+exports = module.exports = Etherio;
 // ----------------------------------------------------------------------------
 
 /**
@@ -10,8 +11,7 @@
 **
 ** @returns	new etherio object
 */
-// function Etherio(ip, port)
-Etherio = function(ip, port) {
+function Etherio(ip, port) {
     var dgram = require('dgram');
 
     this.ip   = ip;             // Can be name or ipv4 address
@@ -30,13 +30,11 @@ Etherio = function(ip, port) {
     // http://stackoverflow.com/questions/6475842/node-js-udp-dgram-handling-error-from-dns-resolution
     // listen for the error (hopefully this will resolve the issue of the uncaught dns error)
     this.client.on("error", function (err) {
-        //logger.info("Socket error: " + err);
 	console.error("Socket error: " + err);
     });
 
     //
     this.client.on('message', function (message, remote) {
-        //logger.info("The packet came back: " + message.toString('ascii', 0, rinfo.size));
         console.info("The packet came back: " + message.toString('ascii', 0, rinfo.size));
     });
 
@@ -71,47 +69,19 @@ Etherio = function(ip, port) {
 **
 ** TODO Eventually I'll turn this into a Node.js module
 **
-** var zoneObj = { "name":"Program 1","zone":8,"port":"A","pin":7 };
+** var Etherio = require('./Etherio'); // At the moment I need to give it the full path, don't know why ./Etherio doesn't work
+** var e = new Etherio('ettherio.uucp', 2424);
+**
 ** var z = {};
 ** z.name = "Program 1";
 ** z.zone = 8;
-** // This is temporary as I don't know where to put this yet
 ** z.port = "A";
 ** z.pin  = 7;
-
-var z = {};
-z.name = "Program 1";
-z.zone = 8;
-// This is temporary as I don't know where to put this yet
-z.port = "A";
-z.pin  = 7;
-
-e.on(z);
-TypeError: Cannot read property 'A' of undefined
-    at Object.Etherio.on (/home/njc/git/node-etherio/node-etherio.js:76:37)
-    at repl:1:3
-    at REPLServer.defaultEval (repl.js:252:27)
-    at bound (domain.js:281:14)
-    at REPLServer.runBound [as eval] (domain.js:294:12)
-    at REPLServer.<anonymous> (repl.js:417:12)
-    at emitOne (events.js:83:20)
-    at REPLServer.emit (events.js:170:7)
-    at REPLServer.Interface._onLine (readline.js:211:10)
-    at REPLServer.Interface._line (readline.js:550:8)
-
-// this works
-e.Etherio();
-undefined
-e.on(z);
-undefined
-// what about pin assignments?
-// http://stackoverflow.com/questions/18020113/exporting-classes-with-node-js
-
-var Etherio = require('./node-etherio');
-var e = new Etherio('eterhio.uucp', 2424);
-
-// Okay now how do we assign the pins?
-
+** 
+** e.on(z);
+**
+** Okay now how do we assign the pins?
+**
 **
 */
 Etherio.prototype.on = function(zone) {
@@ -136,7 +106,6 @@ Etherio.prototype.on = function(zone) {
 **
 ** @returns	nothing
 **
-** TODO Eventually I'll turn this into a Node.js module
 */
 Etherio.prototype.off = function(zone) {
     var val              = ((~(1<<(zone.pin))) & 0x00FF);
@@ -148,10 +117,7 @@ Etherio.prototype.off = function(zone) {
     data.write(zone.port, 0);
     data.write(String.fromCharCode(val&0x00FF), 1, "binary");
     data.write('\n', 2);
-/*
-    logger.info("Off:");
-    logger.info(data);
-*/
+
     this.client.send(data, 0, data.length, this.port, this.ip);
 }
 
@@ -162,7 +128,6 @@ Etherio.prototype.off = function(zone) {
 **
 ** @returns	true if we get a proper ping repsonse, false othewise
 **
-** TODO Eventually I'll turn this into a Node.js module
 */
 Etherio.prototype.ping = function() {
 	// in addition to sending a UDP request
@@ -172,7 +137,3 @@ Etherio.prototype.ping = function() {
 };
 
 // ----------------------------------------------------------------------------
-module.exports.Etherio = Etherio;
-module.exports.on   = Etherio.prototype.on
-module.exports.off  = Etherio.prototype.off;
-module.exports.ping = Etherio.prototype.ping;
