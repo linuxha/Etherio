@@ -9,13 +9,11 @@
     ],
     "main": "Etherio.js",
     "scripts": {
+	"test": "mocha tests",
 	"tests": "echo 'Warning: no test specified' && exit 0"
     },
     "devDependencies": {
 	"mocha": "2.5.3"
-    },
-    "dependencies": {
-	"mathjs": "3.3.0"
     },
     "repository": {
         "type" : "git",
