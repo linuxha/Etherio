@@ -97,6 +97,8 @@ Etherio.prototype.on = function(zone) {
     data.write('\n', 2);
 
     this.client.send(data, 0, data.length, this.port, this.ip);
+
+    return true;
 }
 
 /**
@@ -119,6 +121,8 @@ Etherio.prototype.off = function(zone) {
     data.write('\n', 2);
 
     this.client.send(data, 0, data.length, this.port, this.ip);
+
+    return true;
 }
 
 /**
